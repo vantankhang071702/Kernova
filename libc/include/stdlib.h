@@ -4,7 +4,8 @@
 #include <sys/cdefs.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C" 
+{
 #endif
 
 __attribute__((__noreturn__))

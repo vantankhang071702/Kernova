@@ -6,7 +6,8 @@
 #define EOF (-1)
 
 #ifdef __cplusplus
-extern "C" {
+extern "C" 
+{
 #endif
 
 int printf(const char* __restrict, ...);
