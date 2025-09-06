@@ -16,6 +16,30 @@ static bool print(const char* data, size_t length) {
 	return true;
 }
 
+static void print_int(int data) {
+	if(data == 0) {
+		putchar('0');
+		return;
+	}
+
+	char buffer[10];
+	int i = 0;
+	
+	if(data < 0) {
+		putchar('-');
+		data = -data;
+	}
+
+	while(data > 0) {
+		buffer[i++] = '0' + (data % 10);
+		data = data / 10;
+	}
+
+	while(i > 0) {
+		putchar(buffer[--i]);	
+	}
+}
+
 int printf(const char* restrict format, ...) {
 	va_list parameters;
 	va_start(parameters, format);
@@ -53,7 +77,6 @@ int printf(const char* restrict format, ...) {
 
 		const char* format_begun_at = format++;
 
-
 		switch(*format) {
 			case 'c': {
 				format++;
@@ -66,6 +89,20 @@ int printf(const char* restrict format, ...) {
 				if(!print(&c, sizeof(c))) {
 					return -1;
 				}
+
+				written++;
+				break;
+			}
+
+			case 'd': {
+				format++;
+				int num = va_arg(parameters, int);
+				
+				if(!maxrem) {
+					return -1;
+				}
+
+				print_int(num);
 
 				written++;
 				break;

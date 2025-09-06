@@ -4,5 +4,5 @@
 
 void kernel_main(void) {
 	terminal_initialize();
-	printf("Hello, my name is %s", "Khang");
+	printf("%d = %s", 532, "test");
 }
