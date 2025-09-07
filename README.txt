@@ -24,7 +24,6 @@ ISO tools → mtools, xorriso (for creating bootable ISOs)
 
 Follow these steps once to install i686-elf-gcc into /usr/local/i686elf.
 
-<details> <summary>Full steps</summary>
 Create workspace
 mkdir -p ~/cross/src
 cd ~/cross/src
@@ -66,7 +65,6 @@ Verify
 which i686-elf-gcc
 i686-elf-gcc --version
 
-</details>
 🚀 2. Build & Run the OS
 
 Your project uses three scripts to automate the process:
