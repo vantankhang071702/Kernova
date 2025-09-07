@@ -16,7 +16,7 @@ static bool print(const char* data, size_t length)
 	return true;
 }
 
-static void print_int(int data) 
+static void print_dec(int data) 
 {
 	if(data == 0) {
 		putchar('0');
@@ -38,6 +38,48 @@ static void print_int(int data)
 
 	while(i > 0)
 		putchar(buffer[--i]);	
+}
+
+static void print_hex(int data)
+{
+	char buffer[10];
+	buffer[0] = '0';
+	buffer[1] = 'x';
+	int i = 2;
+	
+	while(data > 0) {
+		int remainder = data % 16;
+		
+		switch(remainder) {
+		case(10):
+			buffer[i] = 'a';
+			break;
+		case(11):
+			buffer[i] = 'b';
+			break;
+		case(12):
+			buffer[i] = 'c';
+			break;
+		case(13):
+			buffer[i] = 'd';
+			break;
+		case(14):
+			buffer[i] = 'e';
+			break;
+		case(15):
+			buffer[i] = 'f';
+			break;
+		default:
+			buffer[i] = '0' + remainder;
+			break;
+		}
+
+		++i;
+		data = data / 16;
+	}
+
+	for(int j = 0; j < i; ++j)
+		putchar(buffer[j]);
 }
 
 int printf(const char* restrict format, ...) 
@@ -96,8 +138,19 @@ int printf(const char* restrict format, ...)
 			if(!maxrem)
 				return -1;
 
-			print_int(num);
+			print_dec(num);
+			written++;
+			break;
+		}
+		
+		case 'x': {
+			format++;
+			int num = va_arg(parameters, int);
 
+			if(!maxrem)
+				return -1;
+
+			print_hex(num);
 			written++;
 			break;
 		}
@@ -131,7 +184,6 @@ int printf(const char* restrict format, ...)
 
 			written += len;
 			format += len;
-	
 			break;
 		}
 	}
