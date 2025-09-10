@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 echo "[1/3] Building kernel..."
 sh build.sh
 
