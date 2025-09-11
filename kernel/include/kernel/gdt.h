@@ -47,6 +47,12 @@
                      SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
                      SEG_PRIV(3)     | SEG_DATA_RDWR
 
+typedef struct {
+	uint16_t size;
+	uint32_t offset;
+} __attribute__((packed)) gdt_ptr;
+
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
+void gdt_init();
 		   
 #endif

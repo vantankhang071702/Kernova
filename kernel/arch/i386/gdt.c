@@ -1,21 +1,39 @@
-#include <gdt.h>
+#include <kernel/gdt.h>
+
+static uint64_t gdt[5];    // GDT table
+static gdt_ptr gp;         // GDTR
+
+extern void gdt_flush(uint32_t);   // in gdt.S
 
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag)
 {
     uint64_t descriptor;
 
-    // Create the high 32 bit segment
-    descriptor = limit & 0x000F0000; // set limit bits 19:16
-    descriptor |= (flag << 8) & 0x00F0FF00; // set type, p, dpl, s, g, d/b, l and avl fields 
-    descriptor |= (base >> 16) & 0x000000FF; // set base bits 23:16 
-    descriptor |= base & 0xFF000000; // set base bits 31:24
+    // High 32 bits
+    descriptor  = (limit & 0x000F0000ULL);            // limit bits 19:16
+    descriptor |= ((uint64_t)flag << 8) & 0x00F0FF00ULL; // flags/type
+    descriptor |= ((uint64_t)(base >> 16) & 0xFF) << 16; // base 23:16
+    descriptor |= ((uint64_t)(base >> 24) & 0xFF) << 24; // base 31:24
 
-    // Shift by 32 to allow for low part of segment
     descriptor <<= 32;
 
-    // Create the low 32 bit segment
-    descriptor |= base << 16; // set base bits 15:0 
-    descriptor |= limit & 0x0000FFFF; // set limit bits 15:0
-    
+    // Low 32 bits
+    descriptor |= ((uint64_t)base & 0xFFFF) << 16; // base 15:0
+    descriptor |= (limit & 0xFFFF);                // limit 15:0
+
     return descriptor;
+}
+
+void gdt_init() 
+{
+    gdt[0] = create_descriptor(0, 0, 0);                       // Null
+    gdt[1] = create_descriptor(0, 0x000FFFFF, GDT_CODE_PL0);   // Kernel code
+    gdt[2] = create_descriptor(0, 0x000FFFFF, GDT_DATA_PL0);   // Kernel data
+    gdt[3] = create_descriptor(0, 0x000FFFFF, GDT_CODE_PL3);   // User code
+    gdt[4] = create_descriptor(0, 0x000FFFFF, GDT_DATA_PL3);   // User data
+
+    gp.size = sizeof(gdt) - 1;
+    gp.offset = (uint32_t)&gdt;
+
+    gdt_flush((uint32_t)&gp); // load it
 }
