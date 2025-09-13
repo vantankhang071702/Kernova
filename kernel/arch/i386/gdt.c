@@ -1,7 +1,7 @@
 #include <kernel/gdt.h>
 
 static uint64_t gdt[5];    // GDT table
-static gdt_ptr gp;         // GDTR
+static gdtr_t gdtr;        // GDTR
 
 extern void gdt_flush(uint32_t);   // in gdt.S
 
@@ -32,8 +32,8 @@ void gdt_init()
     gdt[3] = create_descriptor(0, 0x000FFFFF, GDT_CODE_PL3);   // User code
     gdt[4] = create_descriptor(0, 0x000FFFFF, GDT_DATA_PL3);   // User data
 
-    gp.size = sizeof(gdt) - 1;
-    gp.offset = (uint32_t)&gdt;
+    gdtr.size = sizeof(gdt) - 1;
+    gdtr.offset = (uint32_t)&gdt;
 
-    gdt_flush((uint32_t)&gp); // load it
+    gdt_flush((uint32_t)&gdtr);
 }

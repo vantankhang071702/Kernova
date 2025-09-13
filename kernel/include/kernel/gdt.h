@@ -50,7 +50,7 @@
 typedef struct {
 	uint16_t size;
 	uint32_t offset;
-} __attribute__((packed)) gdt_ptr;
+} __attribute__((packed)) gdtr_t;
 
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
 void gdt_init();
