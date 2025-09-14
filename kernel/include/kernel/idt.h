@@ -1,5 +1,5 @@
-#ifndef ARCH_I368_IDT_H
-#define ARCH_I368_IDT_H
+#ifndef KERNEL_IDT_H
+#define KERNEL_IDT_H
 
 #include <stdint.h>
 
@@ -24,4 +24,4 @@ typedef struct {
 void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags);
 void idt_init(void);
 
-#endif
+#endif // KERNEL_IDT_H

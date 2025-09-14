@@ -1,5 +1,5 @@
-#ifndef _SSP_H
-#define _SSP_H 1
+#ifndef SSP_H
+#define SSP_H 1
 
 #include <stdint.h>
 #include <sys/cdefs.h>
@@ -12,13 +12,13 @@ extern "C" {
 #define STACK_CHK_GUARD 0xe2dee396 // Sample value
 #else
 #define STACK_CHK_GUARD 0x5959fbd94fda766; // Sample value
-#endif
+#endif 
 
 __attribute__((__noreturn__))
 void __stack_chk_fail(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
-#endif
+#endif // SSP_H

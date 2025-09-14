@@ -1,5 +1,5 @@
-#ifndef _STDLIB_H
-#define _STDLIB_H 1
+#ifndef STDLIB_H
+#define STDLIB_H 1
 
 #include <sys/cdefs.h>
 
@@ -13,6 +13,6 @@ void abort(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
-#endif
+#endif // STDLIB_H

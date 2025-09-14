@@ -1,5 +1,5 @@
-#ifndef ARCH_I368_GDT_H
-#define ARCH_I368_GDT_H
+#ifndef KERNEL_GDT_H
+#define KERNEL_GDT_H
 
 // Used for creating GDT segment descriptors in 64-bit integer form.
 #include <stdint.h>
@@ -55,4 +55,4 @@ typedef struct {
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
 void gdt_init();
 		   
-#endif
+#endif // KERNEL_GDT_H
