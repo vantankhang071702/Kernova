@@ -7,8 +7,7 @@ extern void* isr_stub_table[];
 static idtr_t idtr;
 static idt_entry_t idt[IDT_MAX_DESCRIPTORS];
 
-void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flag)
-{
+void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flag) {
     idt_entry_t* descriptor = &idt[vector];
 
     descriptor->isr_low    = (uint32_t)isr & 0xFFFF;
@@ -18,8 +17,7 @@ void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flag)
     descriptor->reserved   = 0;    
 }
 
-void idt_init(void) 
-{
+void idt_init(void) {
     idtr.base = (uintptr_t)&idt[0];
     idtr.limit = (uint16_t)sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS - 1;
     

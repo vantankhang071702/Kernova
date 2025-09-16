@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static bool print(const char* data, size_t length) 
-{
+static bool print(const char* data, size_t length) {
     const unsigned char* bytes = (const unsigned char*) data;
 
     for (size_t i = 0; i < length; i++) {
@@ -16,8 +15,7 @@ static bool print(const char* data, size_t length)
     return true;
 }
 
-static void print_dec(int data) 
-{
+static void print_dec(int data) {
     if(data == 0) {
         putchar('0');
         return;
@@ -40,8 +38,7 @@ static void print_dec(int data)
         putchar(buffer[--i]);	
 }
 
-static void print_hex(int data)
-{
+static void print_hex(int data) {
     char buffer[10];
     buffer[0] = '0';
     buffer[1] = 'x';
@@ -82,8 +79,7 @@ static void print_hex(int data)
         putchar(buffer[j]);
 }
 
-int printf(const char* restrict format, ...) 
-{
+int printf(const char* restrict format, ...) {
     va_list parameters;
     va_start(parameters, format);
 

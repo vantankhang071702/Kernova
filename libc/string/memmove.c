@@ -1,7 +1,6 @@
 #include <string.h>
 
-void* memmove(void* dstptr, const void* srcptr, size_t size) 
-{
+void* memmove(void* dstptr, const void* srcptr, size_t size) {
     const unsigned char* src = (const unsigned char*) srcptr;
     unsigned char* dst = (unsigned char*) dstptr;
 
